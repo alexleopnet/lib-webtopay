@@ -49,6 +49,13 @@ class WebToPay_WebClient
 
         $content = $this->getContentFromSocket($fp, $out);
 
+        if (strpos($content, "\r\n\r\n") === false) {
+            throw new WebToPayException(
+                sprintf('Cannot read response from %s', $uri),
+                WebToPayException::E_INVALID
+            );
+        }
+
         // Separate header and content
         [$header, $content] = explode("\r\n\r\n", $content, 2);
 

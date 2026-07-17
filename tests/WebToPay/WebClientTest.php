@@ -93,6 +93,8 @@ class WebToPay_WebClientTest extends TestCase
             ->willReturn($content);
 
         $this->expectException(WebToPayException::class);
+        $this->expectExceptionCode(WebToPayException::E_INVALID);
+        $this->expectExceptionMessage('Cannot read response from https://example.com');
         $this->webClientMock->get('https://example.com');
     }
 }
